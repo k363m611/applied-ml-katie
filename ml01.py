@@ -1,110 +1,117 @@
-""" 
-ml01.py - Just the code
-This script is a simple example of a linear regression model using the California Housing dataset.
-Some charting is commented out after evaluation.
-The dataset is loaded, explored, and visualized. 
-Features are selected and a linear regression model is trained.
-The model is evaluated using R², MAE, and RMSE.
-"""
+# ==============================================================
+# Project: California Housing Price Prediction
+# Author: Katie McGaughey
+# Date: 3-15-2025
+# Objective: Predict the median house price in California using available housing features.
+# ==============================================================
 
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+# ==========================
+# 📌 SECTION 1: IMPORTS
+# ==========================
+
+# Import necessary libraries
+import pandas as pd  # For data manipulation
+import numpy as np  # For numerical computations
+import matplotlib.pyplot as plt  # For static visualizations
+import seaborn as sns  # For statistical data visualization
+
+# Import the California housing dataset from sklearn
 from sklearn.datasets import fetch_california_housing
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import root_mean_squared_error, mean_absolute_error, r2_score
+from sklearn.model_selection import train_test_split  # Splitting data
+from sklearn.linear_model import LinearRegression  # Linear regression model
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score  # Model evaluation
 
-#########################################
-# Section 1. Load and explore the dataset.
-#########################################
+# ==========================
+# 📌 SECTION 2: LOAD & EXPLORE DATA
+# ==========================
+
+# Load the California housing dataset
 data = fetch_california_housing(as_frame=True)
-data_frame = data.frame
-data_frame.head(10)
+data_frame = data.frame  # Convert to pandas DataFrame
 
-# Check data types and missing values
-data_frame.info()
+# Display first 10 rows
+print("🔹 First 10 rows of the dataset:")
+print(data_frame.head(10))
 
-# Summary statistics
-data_frame.describe()
+# Check for missing values and data types
+print("\n🔹 Dataset Info:")
+print(data_frame.info())
 
-# Check for missing values
-data_frame.isnull().sum()
+print("\n🔹 Summary Statistics:")
+print(data_frame.describe())
 
-#########################################
-# Section 2. Visualize Feature Distributions
-#########################################
+print("\n🔹 Missing Values Per Column:")
+print(data_frame.isnull().sum())
 
-# Histograms for all numeric columns
+# ==========================
+# 📌 SECTION 3: VISUALIZE DATA
+# ==========================
+
+# Histograms of numerical features
 data_frame.hist(bins=30, figsize=(12, 8))
+plt.suptitle("Feature Distributions")
 plt.show()
 
-# Boxenplots for all numeric columns
-# for column in data_frame.columns:
-#     plt.figure(figsize=(6, 4))
-#     sns.boxenplot(data=data_frame[column])
-#     plt.title(f'Boxenplot for {column}')
-#     plt.show()
+# Generate boxenplots for each column
+for column in data_frame.columns:
+    plt.figure(figsize=(6, 4))
+    sns.boxenplot(data=data_frame[column])
+    plt.title(f'Boxenplot for {column}')
+    plt.show()
 
-# Pairplot for all numeric columns
-# With 9 columns, there will be 9x9 = 81 plots, so this is commented out after analysis.
-# sns.pairplot(data_frame)
-# plt.show()
+# Generate all scatter plots (⚠️ This takes time)
+sns.pairplot(data_frame)
+plt.show()
 
-#########################################
-# Section 3. Feature Selection and Justification
-#########################################
+# ==========================
+# 📌 SECTION 4: FEATURE SELECTION
+# ==========================
 
-features: list = ['MedInc', 'AveRooms']
-target: str = 'MedHouseVal'
+# Select input features and target variable
+features = ['MedInc', 'AveRooms']  # Predictor variables
+target = 'MedHouseVal'  # Target variable
+
+# Create feature matrix (X) and target vector (y)
 df_X = data_frame[features]
 df_y = data_frame[target]
 
-#########################################
-# Section 4. Train a Linear Regression Model
-#########################################
+print("\n🔹 Selected Features (X):")
+print(df_X.head())
 
-# split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(
-    df_X, df_y, test_size=0.2, random_state=42)
+print("\n🔹 Target Variable (y):")
+print(df_y.head())
 
-# make an instance of the model, fit the data, then predict test y values
+# ==========================
+# 📌 SECTION 5: TRAIN A LINEAR REGRESSION MODEL
+# ==========================
+
+# Split dataset into training (80%) and testing (20%) sets
+X_train, X_test, y_train, y_test = train_test_split(df_X, df_y, test_size=0.2, random_state=42)
+
+print("\n🔹 Training Set (X_train):")
+print(X_train.head())
+
+print("\n🔹 Testing Set (X_test):")
+print(X_test.head())
+
+# Create and train the Linear Regression model
 model = LinearRegression()
 model.fit(X_train, y_train)
+
+# Make predictions on the test set
 y_pred = model.predict(X_test)
 
-# Evaluate the model using R², MAE, and RMSE.
- 
-r2 = r2_score(y_test, y_pred)
-print(f'R²: {r2:.2f}')
+# ==========================
+# 📌 SECTION 6: MODEL EVALUATION
+# ==========================
 
-mae = mean_absolute_error(y_test, y_pred)
+# Compute evaluation metrics
+r2 = r2_score(y_test, y_pred)  # R² Score
+mae = mean_absolute_error(y_test, y_pred)  # Mean Absolute Error
+rmse = mean_squared_error(y_test, y_pred, squared=False)  # Root Mean Squared Error
+
+# Print evaluation results
+print("\n🔹 Model Performance Metrics:")
+print(f'R² Score: {r2:.2f}')
 print(f'MAE: {mae:.2f}')
-
-rmse = root_mean_squared_error(y_test, y_pred)
 print(f'RMSE: {rmse:.2f}')
-
-"""
-SAMPLE OUTPUT:
-
-RangeIndex: 20640 entries, 0 to 20639
-Data columns (total 9 columns):
- #   Column       Non-Null Count  Dtype  
----  ------       --------------  -----  
- 0   MedInc       20640 non-null  float64
- 1   HouseAge     20640 non-null  float64
- 2   AveRooms     20640 non-null  float64
- 3   AveBedrms    20640 non-null  float64
- 4   Population   20640 non-null  float64
- 5   AveOccup     20640 non-null  float64
- 6   Latitude     20640 non-null  float64
- 7   Longitude    20640 non-null  float64
- 8   MedHouseVal  20640 non-null  float64
-dtypes: float64(9)
-memory usage: 1.4 MB
-R²: 0.46
-MAE: 0.62
-RMSE: 0.84
-
-"""
