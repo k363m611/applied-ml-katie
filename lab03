@@ -1,0 +1,23 @@
+# Lab 3 – Building a Classifier (Titanic Dataset)
+
+## Overview
+In this lab, we build and evaluate different classification models using the Titanic dataset. We:
+
+1. Load and preprocess the data
+2. Split into training and testing sets
+3. Train multiple classifiers (e.g., Logistic Regression, K-Nearest Neighbors, Decision Tree, etc.)
+4. Compare their performance
+5. Summarize our findings
+
+## Files
+- `README.md`: This file
+- `ml03_Nadeem.ipynb`: The Jupyter Notebook with our analysis and models
+
+## Steps to Run
+1. Open `ml03_Nadeem.ipynb` in Jupyter or VS Code.
+2. Run each cell from top to bottom.
+3. Check the final tables or metrics (accuracy, confusion matrix, etc.) to see which model performed best.
+
+## Author
+- Huzaifa Nadeem
+- 03/28/2025
