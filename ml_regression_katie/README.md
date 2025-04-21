@@ -4,7 +4,7 @@
 
 Link to Notebook: https://github.com/k363m611/applied-ml-katie/blob/main/ml_regression_katie/regression_katie.ipynb
 
-Link to Peer Review: https://github.com/egbogbo11/ml_regression_gbogbo/blob/main/peer_review.md 
+Link to Peer Review: https://github.com/k363m611/applied-ml-katie/blob/main/ml_regression_katie/peer_review.md
 
 ## Project Setup
 
