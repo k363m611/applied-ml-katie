@@ -10,7 +10,7 @@ Link to Peer Review: https://github.com/egbogbo11/ml_regression_gbogbo/blob/main
 
 ### Make repository in Github and clone to local workspace
 ```bash
-git clone https://github.com/egbogbo11/ml_regression_gbogbo
+git clone [https://github.com/egbogbo11/ml_regression_gbogbo](https://github.com/k363m611/applied-ml-katie/blob/main/ml_regression_katie/regression_katie.ipynb)
 ```
 
 ### Create .gitignore file
