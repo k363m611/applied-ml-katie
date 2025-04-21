@@ -1,4 +1,4 @@
-# Peer Review - Medical Insurance Costs - Craig Wilcox
+# Peer Review - Medical Insurance Costs - Elom Gbogbo
 
 https://github.com/egbogbo11/ml_regression_gbogbo/blob/main/regression_gbogbo.ipynb
 
